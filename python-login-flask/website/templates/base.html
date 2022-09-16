@@ -1,0 +1,66 @@
+<!-- What ever is in this document is the base template, or what the
+whole background of the website will look like  -->
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Bootstrap template to make everything look nicer -->
+
+    <title>{% block title %}Home{% endblock %}</title>
+    <!-- When writing python statements in Jinja language, use { and % -->
+    <!-- Any blocks will be able to be changed from the base template -->
+  </head>
+
+  <body>
+    <!-- Bootstrap class to change what the navbar looks like -->
+    <nav>
+      <button
+        
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbar"
+      >
+        <span "></span>
+      </button>
+      <div id="navbar">
+        <div>
+          {% if user.is_authenticated %}
+          <a  id="home" href="/">Home</a>
+          <a id="logout" href="/logout">Logout</a>
+          {% else %}
+          <a  id="login" href="/login">Login</a>
+          <a  id="signUp" href="/sign-up">Sign Up</a>
+          {% endif %}
+        </div>
+      </div>
+    </nav>
+
+    <!-- Gets all messages that are flashed with the categories, and then we will loop through them -->
+    {% with messages = get_flashed_messages(with_categories=true) %} {% if
+    messages %} {% for category, message in messages %} {% if category ==
+    'error'%}
+    <div role="alert">
+      {{message}}
+      <button type="button"  data-dismiss="alert">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    {% else %}
+    <div role="alert">
+      {{message}}
+      <button type="button"  data-dismiss="alert">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    {% endif %} {% endfor %} {% endif %} {% endwith %}
+
+    <div >{% block content %} {% endblock %}</div>
+
+    <script
+      type="text/javascript"
+      src="{{ url_for('static', filename='index.js') }}"
+    ></script>
+  </body>
+</html>
