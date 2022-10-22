@@ -1,58 +1,45 @@
-<!-- What ever is in this document is the base template, or what the
-whole background of the website will look like  -->
+<!-- What ever is in this document is the base template, or what the whole background of the website will look like  -->
+<!-- Will override this main template with more specific templates -->
 
 <!DOCTYPE html>
 <html>
   <head>
+    <!-- Standard HTML header code for most websites -->
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <!-- Bootstrap template to make everything look nicer -->
 
-    <title>{% block title %}Home{% endblock %}</title>
+    <!-- Base template that can be overriden in another file -->
+    <title>{% block title %}Home{% endblock %}</title>  
     <!-- When writing python statements in Jinja language, use { and % -->
     <!-- Any blocks will be able to be changed from the base template -->
+    <Link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='baseLayout.css') }}">
   </head>
 
-  <body>
-    <!-- Bootstrap class to change what the navbar looks like -->
-    <nav>
-      <button
-        
-        type="button"
-        data-toggle="collapse"
-        data-target="#navbar"
-      >
-        <span "></span>
-      </button>
-      <div id="navbar">
-        <div>
-          {% if user.is_authenticated %}
-          <a  id="home" href="/">Home</a>
-          <a id="logout" href="/logout">Logout</a>
-          {% else %}
-          <a  id="login" href="/login">Login</a>
-          <a  id="signUp" href="/sign-up">Sign Up</a>
-          {% endif %}
-        </div>
-      </div>
-    </nav>
-
+  <body align="center">
+    <div>
+      {% if user.is_authenticated %}
+      <a id="home" href="/">Home</a>
+      <a id="logout" href="/logout">Logout</a>
+      {% else %}
+      <a  id="login" href="/login">Login</a>
+      <a  id="signUp" href="/sign-up">Sign Up</a>
+      {% endif %}
+    </div>
+      
     <!-- Gets all messages that are flashed with the categories, and then we will loop through them -->
+    <!-- Flask stores all flashed messages -->
     {% with messages = get_flashed_messages(with_categories=true) %} {% if
-    messages %} {% for category, message in messages %} {% if category ==
-    'error'%}
+    messages %} {% for category, message in messages %} 
+    {% if category == 'error'%}
     <div role="alert">
       {{message}}
-      <button type="button"  data-dismiss="alert">
+      <!-- <button type="button">
         <span aria-hidden="true">&times;</span>
-      </button>
+      </button> -->
     </div>
     {% else %}
     <div role="alert">
       {{message}}
-      <button type="button"  data-dismiss="alert">
-        <span aria-hidden="true">&times;</span>
-      </button>
     </div>
     {% endif %} {% endfor %} {% endif %} {% endwith %}
 

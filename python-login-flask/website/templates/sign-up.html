@@ -1,7 +1,9 @@
 {%extends "base.html"%} {% block title %}Sign Up{% endblock %} {% block content
 %}
-<form method="POST">
-  <h3 align="center">Sign Up</h3>
+
+<!-- This whole form is the basic sign up form for standard user account creation -->
+<form method="POST">  <!-- Sends an HTTP post request (SENDS/CHANGES info) to the backend-->
+  <h3 align="center">Sign Up</h3> <!-- Title -->
   <div>
     <label for="email">Email Address</label>
     <input type="email" id="email" name="email" placeholder="Enter email" />
